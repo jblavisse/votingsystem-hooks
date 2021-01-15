@@ -39,8 +39,8 @@ function App() {
     const tmpQuestions = [...questions];
     const newQuestionId = tmpQuestions.findIndex(
         question => question.id === newQuestion.id);
-      
-    tmpQuestions[newQuestion.id] = newQuestion;
+
+    tmpQuestions[newQuestionId] = newQuestion;
     setQuestions(tmpQuestions);
 
   }
