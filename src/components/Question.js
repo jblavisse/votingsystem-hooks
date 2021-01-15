@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import Counter from "./Counter";
 
-export default function Question({data}) {
+export default function Question({changeQuestion, data}) {
     const [countAnswerVisible, setCountAnswerVisible] = useState(false);
     const [userAnswer, setUserAnswer]  = useState("1");
 
     const handleVote = () => {
         setCountAnswerVisible(true);
 
-        const newQuestion = data;
+        const newQuestion = {...data};
         newQuestion.answers[userAnswer-1].count++;
+        changeQuestion(newQuestion);
     }
 
     const handleAnswer = (e) => {
@@ -24,12 +25,12 @@ export default function Question({data}) {
             <div className="card-body">
             <form>
                 {data.answers.map(answer => {
-                    const idAnswer = "q"+data.id+"r"+answer.number; 
+                    const idAnswer = "q"+data.id+"r"+answer.id; 
                     return (
                         <div className="form-check">
                             <input className="form-check-input" type="radio" 
                                id={idAnswer} name={"q"+data.id} 
-                               value={answer.number} 
+                               value={answer.id} 
                                onChange={handleAnswer} />
                             <label className="form-check-label" htmlFor={idAnswer}>
                                 {answer.name} {countAnswerVisible ? answer.count : null}
